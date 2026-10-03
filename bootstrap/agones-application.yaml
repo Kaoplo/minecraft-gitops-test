@@ -20,6 +20,9 @@ spec:
             - minecraft
 
         agones:
+          ping:
+            install: false
+
           allocator:
             install: true
             service:
