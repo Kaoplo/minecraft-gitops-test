@@ -1,0 +1,22 @@
+apiVersion: shulkermc.io/v1alpha1
+kind: ProxyFleet
+metadata:
+  name: public
+  namespace: minecraft
+spec:
+  clusterRef:
+    name: minecraft
+
+  replicas: 1
+
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+
+  template:
+    spec:
+      version:
+        channel: Velocity
+        name: latest
+
+      config: {}

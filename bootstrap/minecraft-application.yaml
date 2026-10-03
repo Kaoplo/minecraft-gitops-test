@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minecraft
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Kaoplo/minecraft-gitops-test.git
+    targetRevision: main
+    path: minecraft
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: minecraft
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
+      - SkipDryRunOnMissingResource=true
+
+    retry:
+      limit: 10
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m
